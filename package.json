@@ -1,0 +1,34 @@
+{
+  "name": "service-images",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coupon-app/service-images.git"
+  },
+  "author": "Daniel Rowe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/coupon-app/service-images/issues"
+  },
+  "homepage": "https://github.com/coupon-app/service-images#readme",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.18.0",
+    "eslint-plugin-react-hooks": "^1.7.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "styled-components": "^5.0.0",
+    "webpack": "^4.41.5"
+  }
+}
