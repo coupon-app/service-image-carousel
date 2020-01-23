@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "client-dev": "webpack --config webpack.config.js --watch",
+    "server-dev": "nodemon server",
+    "dev": "concurrently \"npm:client-dev\" \"npm:server-dev\""
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,7 @@
     "@babel/preset-env": "^7.8.3",
     "@babel/preset-react": "^7.8.3",
     "babel-loader": "^8.0.6",
+    "concurrently": "^5.0.2",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-plugin-import": "^2.20.0",
