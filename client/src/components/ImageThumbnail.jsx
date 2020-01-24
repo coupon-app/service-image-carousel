@@ -2,6 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+
 const Image = styled.img`
   height: 57px;
   width: 57px;
@@ -16,6 +17,7 @@ const Image = styled.img`
   /* Border */
   transition: border-width 0.25s cubic-bezier(.4,-1.5,.6,2.75),outline-width .25s cubic-bezier(.25,2.5,.625,.25);
 `;
+
 
 const ImageThumbnail = ({ src, isSelected, onClick }) => (
   <Image

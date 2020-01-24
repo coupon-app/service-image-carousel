@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import ImageThumbnail from './ImageThumbnail';
 
@@ -11,15 +11,13 @@ const Wrapper = styled.div`
 `;
 
 
-const ThumbnailWrapper = ({ imageUrlArray }) => {
-  const [selectedThumbnailID, setSelectedThumbnailID] = useState(0);
-
+const ThumbnailWrapper = ({ imageUrlArray, selectedId, onChange }) => {
   const Thumbnails = imageUrlArray.map((imageUrl, i) => (
     <ImageThumbnail
       src={imageUrl}
       key={imageUrl}
-      onClick={() => setSelectedThumbnailID(i)}
-      isSelected={i === selectedThumbnailID}
+      onClick={() => onChange(i)}
+      isSelected={i === selectedId}
     />
   ));
 
