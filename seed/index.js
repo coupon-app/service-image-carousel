@@ -1,8 +1,16 @@
-const { saveImgToFile } = require('./libs');
+const { saveImgToFile, getRandomProductImageCount } = require('./libs');
 
 const { PRODUCT_COUNT } = require('./config');
 
-for (let i = 0; i < PRODUCT_COUNT; i += 1) {
-  saveImgToFile(i);
-  saveImgToFile(i, true);
+let currentId = 0;
+
+for (let productId = 0; productId < PRODUCT_COUNT; productId += 1) {
+  const productImageCount = getRandomProductImageCount();
+
+  for (let imageId = 0; imageId < productImageCount; imageId += 1) {
+    const filenameBody = `product_${productId}-img_${imageId}`;
+    saveImgToFile(currentId, filenameBody);
+    saveImgToFile(currentId, `${filenameBody}-thumbnail`, true);
+    currentId += 1;
+  }
 }

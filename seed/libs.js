@@ -7,22 +7,20 @@ const {
   IMG_SIZE,
   THUMBNAIL_SIZE,
   IMG_PATH,
-  THUMBNAIL_PATH,
+  PRODUCT_IMAGE_COUNT_RANGE,
 } = require('./config');
 
 
-const saveImgToFile = (id, isThumbnail = false) => {
+const saveImgToFile = (imageId, name, isThumbnail = false) => {
   const size = isThumbnail
     ? THUMBNAIL_SIZE
     : IMG_SIZE;
 
-  const imageUrl = `https://i.picsum.photos/id/${id}/${size.join('/')}.jpg`;
+  const imageUrl = `https://i.picsum.photos/id/${imageId}/${size.join('/')}.jpg`;
 
-  const filename = `${id}.jpg`;
+  const filename = `${name}.jpg`;
 
-  const filePath = isThumbnail
-    ? path.resolve(THUMBNAIL_PATH, filename)
-    : path.resolve(IMG_PATH, filename);
+  const filePath = path.resolve(IMG_PATH, filename);
 
 
   axios(imageUrl, {
@@ -40,4 +38,14 @@ const saveImgToFile = (id, isThumbnail = false) => {
     });
 };
 
-module.exports = { saveImgToFile };
+
+const getRandomProductImageCount = () => {
+  const [min, max] = PRODUCT_IMAGE_COUNT_RANGE;
+  const difference = max - min;
+
+  return Math.floor(
+    min + (Math.random() * difference),
+  );
+};
+
+module.exports = { saveImgToFile, getRandomProductImageCount };
