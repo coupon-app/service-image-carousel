@@ -11,24 +11,21 @@ const {
 } = require('./config');
 
 
-const getImageObject = (id) => {
-  const imageUrl = (sizeTuple) => (
-    `https://i.picsum.photos/id/${id}/${sizeTuple.join('/')}.jpg`
-  );
+const saveImgToFile = (id, isThumbnail = false) => {
+  const size = isThumbnail
+    ? THUMBNAIL_SIZE
+    : IMG_SIZE;
 
-  return {
-    imgUrl: imageUrl(IMG_SIZE),
-    thumbnailUrl: imageUrl(THUMBNAIL_SIZE),
-  };
-};
+  const imageUrl = `https://i.picsum.photos/id/${id}/${size.join('/')}.jpg`;
 
-const saveImgUrlToFile = (url, id, isThumbnail = false) => {
   const filename = `${id}.jpg`;
+
   const filePath = isThumbnail
     ? path.resolve(THUMBNAIL_PATH, filename)
     : path.resolve(IMG_PATH, filename);
 
-  axios(url, {
+
+  axios(imageUrl, {
     responseType: 'arraybuffer',
   })
     .then((response) => Buffer.from(response.data, 'binary'))
@@ -43,4 +40,4 @@ const saveImgUrlToFile = (url, id, isThumbnail = false) => {
     });
 };
 
-module.exports = { getImageObject, saveImgUrlToFile };
+module.exports = { saveImgToFile };
