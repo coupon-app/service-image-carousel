@@ -34,7 +34,11 @@ const saveImgUrlToFile = (url, id, isThumbnail = false) => {
     .then((response) => Buffer.from(response.data, 'binary'))
     .then((imageBuffer) => {
       fs.writeFile(filePath, imageBuffer, (err) => {
-        if (err) console.log(err);
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('Saved seed image to:', filePath);
+        }
       });
     });
 };
