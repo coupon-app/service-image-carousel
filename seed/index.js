@@ -1,4 +1,4 @@
-const { saveImgToFile, getRandomProductImageCount } = require('./libs');
+const { saveImgToFile, getRandomProductImageCount, zeroPadded } = require('./libs');
 
 const { PRODUCT_COUNT } = require('./config');
 
@@ -8,7 +8,9 @@ for (let productId = 0; productId < PRODUCT_COUNT; productId += 1) {
   const productImageCount = getRandomProductImageCount();
 
   for (let imageId = 0; imageId < productImageCount; imageId += 1) {
-    const filenameBody = `product_${productId}-img_${imageId}`;
+    const paddedProductId = zeroPadded(productId, 3);
+    const paddedImageId = zeroPadded(imageId, 2);
+    const filenameBody = `product_${paddedProductId}-img_${paddedImageId}`;
     saveImgToFile(currentId, filenameBody);
     saveImgToFile(currentId, `${filenameBody}-thumbnail`, true);
     currentId += 1;

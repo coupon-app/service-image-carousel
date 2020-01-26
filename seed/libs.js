@@ -25,6 +25,7 @@ const saveImgToFile = (imageId, name, isThumbnail = false) => {
 
   axios(imageUrl, {
     responseType: 'arraybuffer',
+    timeout: 20000,
   })
     .then((response) => Buffer.from(response.data, 'binary'))
     .then((imageBuffer) => {
@@ -32,9 +33,12 @@ const saveImgToFile = (imageId, name, isThumbnail = false) => {
         if (err) {
           console.log(err);
         } else {
-          console.log('Saved seed image to:', filePath);
+          console.log('✔️  ', filePath);
         }
       });
+    })
+    .catch(() => {
+      console.log('✖️  ', filePath);
     });
 };
 
@@ -48,4 +52,12 @@ const getRandomProductImageCount = () => {
   );
 };
 
-module.exports = { saveImgToFile, getRandomProductImageCount };
+
+const zeroPadded = (num, length) => {
+  const numString = String(num);
+  const numLength = numString.length;
+
+  return '0'.repeat(length - numLength) + numString;
+};
+
+module.exports = { saveImgToFile, getRandomProductImageCount, zeroPadded };
