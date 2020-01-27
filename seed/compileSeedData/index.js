@@ -13,10 +13,9 @@ const imageNames = imageNameString.split('\n');
 const seedJson = [];
 
 imageNames.forEach((imageName) => {
-  const isThumnail = imageName.includes('thumbnail');
+  const isThumbnail = imageName.includes('thumbnail');
   const productId = Number(imageName.replace('product_', '').split('-')[0]);
   const imgId = Number(imageName.split('-')[1].replace('img_', '').replace('.jpg', ''));
-
 
   const productObj = {
     productId,
@@ -25,9 +24,7 @@ imageNames.forEach((imageName) => {
     thumbnailUrl: S3PATH + imageName.replace('.jpg', '-thumbnail.jpg'),
   };
 
-  console.log(productObj);
-
-  if (!isThumnail) {
+  if (!isThumbnail) {
     seedJson.push(productObj);
   }
 });
