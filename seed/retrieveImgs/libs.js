@@ -11,14 +11,20 @@ const {
 } = require('./config');
 
 
-const saveImgToFile = (imageId, name, isThumbnail = false) => {
-  const size = isThumbnail
-    ? THUMBNAIL_SIZE
-    : IMG_SIZE;
+const saveImgToFile = (imageId, name, isThumbnail = false) => new Promise((resolve, reject) => {
+  let size;
+  let thumbnailPostfix = '';
 
-  const imageUrl = `https://i.picsum.photos/id/${imageId}/${size.join('/')}.jpg`;
+  if (isThumbnail) {
+    size = THUMBNAIL_SIZE;
+    thumbnailPostfix = '-thumbnail';
+  } else {
+    size = IMG_SIZE;
+  }
 
-  const filename = `${name}.jpg`;
+  const imageUrl = `https://i.picsum.photos/id/${imageId}/${size.join('/')}${thumbnailPostfix}.jpg`;
+
+  const filename = `${name}${thumbnailPostfix}.jpg`;
 
   const filePath = path.resolve(IMG_PATH, filename);
 
@@ -34,13 +40,23 @@ const saveImgToFile = (imageId, name, isThumbnail = false) => {
           console.log(err);
         } else {
           console.log('✔️  ', filePath);
+          // TODO: write filename to file
+          fs.appendFile(path.resolve(__dirname, 'images.txt'), `${filename}\n`, (fileErr) => {
+            if (fileErr) console.log(fileErr);
+          });
+          resolve(filePath);
         }
       });
     })
-    .catch(() => {
+    .catch((err) => {
       console.log('✖️  ', filePath);
+      reject(err);
     });
-};
+
+  if (!isThumbnail) {
+    saveImgToFile(imageId, name, true);
+  }
+});
 
 
 const getRandomProductImageCount = () => {
