@@ -15,8 +15,12 @@ const seedJson = [];
 imageNames.forEach((imageName) => {
   const isThumnail = imageName.includes('thumbnail');
   const productId = Number(imageName.replace('product_', '').split('-')[0]);
-  console.log(productId);
+  const imgId = Number(imageName.split('-')[1].replace('img_', '').replace('.jpg', ''));
+
+
   const productObj = {
+    productId,
+    imgId,
     imgUrl: S3PATH + imageName,
     thumbnailUrl: S3PATH + imageName.replace('.jpg', '-thumbnail.jpg'),
   };
@@ -24,14 +28,7 @@ imageNames.forEach((imageName) => {
   console.log(productObj);
 
   if (!isThumnail) {
-    console.log(seedJson[productId]);
-    if (seedJson[productId] === undefined) {
-      seedJson[productId] = [
-        productObj,
-      ];
-    } else {
-      seedJson[productId].push(productObj);
-    }
+    seedJson.push(productObj);
   }
 });
 
