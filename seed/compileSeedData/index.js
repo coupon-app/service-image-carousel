@@ -2,7 +2,11 @@
 const fs = require('fs');
 const path = require('path');
 
-const imageNameString = fs.readFileSync(path.resolve(__dirname, '..', 'retrieveImgs', 'images.txt')).toString();
+const S3PATH = 'https://product-carousel-images.s3-us-west-2.amazonaws.com/';
+
+const imageNameString = fs
+  .readFileSync(path.resolve(__dirname, '..', 'retrieveImgs', 'images.txt'))
+  .toString();
 
 const imageNames = imageNameString.split('\n');
 
@@ -10,14 +14,31 @@ const seedJson = [];
 
 imageNames.forEach((imageName) => {
   const isThumnail = imageName.includes('thumbnail');
+  const productId = Number(imageName.replace('product_', '').split('-')[0]);
+  console.log(productId);
+  const productObj = {
+    imgUrl: S3PATH + imageName,
+    thumbnailUrl: S3PATH + imageName.replace('.jpg', '-thumbnail.jpg'),
+  };
+
+  console.log(productObj);
+
   if (!isThumnail) {
-    seedJson.push({
-      imgUrl: imageName,
-      thumbnailUrl: imageName.replace('.jpg', '-thumbnail.jpg'),
-    });
+    console.log(seedJson[productId]);
+    if (seedJson[productId] === undefined) {
+      seedJson[productId] = [
+        productObj,
+      ];
+    } else {
+      seedJson[productId].push(productObj);
+    }
   }
 });
 
-fs.writeFileSync(path.resolve(__dirname, '..', 'seedData.json'), JSON.stringify(seedJson), (err) => {
-  console.log(err);
-});
+fs.writeFileSync(
+  path.resolve(__dirname, '..', 'seedData.json'),
+  JSON.stringify(seedJson),
+  (err) => {
+    console.log(err);
+  },
+);
