@@ -44,4 +44,16 @@ const saveImages = (imageArray) => {
 };
 
 
-module.exports = { saveImages, onConnect };
+const getProductImages = (productId) => new Promise((resolve, reject) => {
+  Image.find({ productId })
+    .sort({ imgId: 1 })
+    .then((results) => {
+      resolve(results);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
+
+module.exports = { saveImages, getProductImages, onConnect };
