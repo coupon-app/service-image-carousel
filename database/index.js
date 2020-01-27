@@ -2,18 +2,22 @@
 const mongoose = require('mongoose');
 
 
-mongoose.connect('mongodb://localhost/carousel', { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log('Connected to mongodb');
-  }
+const onConnect = new Promise((resolve, reject) => {
+  mongoose.connect('mongodb://localhost/carousel', { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+    if (err) {
+      console.log(err);
+      reject(err);
+    } else {
+      console.log('Connected to mongodb');
+      resolve();
+    }
+  });
 });
 
 
 const ImageSchema = new mongoose.Schema({
   productId: Number,
-  imageId: Number,
+  imgId: Number,
   imgUrl: String,
   thumbnailUrl: String,
 });
@@ -40,4 +44,4 @@ const saveImages = (imageArray) => {
 };
 
 
-module.exports = { saveImages };
+module.exports = { saveImages, onConnect };
