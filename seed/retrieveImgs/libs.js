@@ -22,7 +22,7 @@ const saveImgToFile = (imageId, name, isThumbnail = false) => new Promise((resol
     size = IMG_SIZE;
   }
 
-  const imageUrl = `https://i.picsum.photos/id/${imageId}/${size.join('/')}${thumbnailPostfix}.jpg`;
+  const imageUrl = `https://i.picsum.photos/id/${imageId}/${size.join('/')}.jpg`;
 
   const filename = `${name}${thumbnailPostfix}.jpg`;
 
