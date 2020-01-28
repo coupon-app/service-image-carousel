@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import renderer from 'react-test-renderer'
 import 'jest-styled-components'
-import ImageThumbnail from '../../components/ImageThumbnail';
+import ImageThumbnail from '../../client/src/components/ImageThumbnail';
 
 describe('ImageThumbnail', () => {
   it('invoke callback on click', () => {
