@@ -10,7 +10,7 @@ const PUBLIC_DIR = path.resolve(__dirname, '..', 'client', 'public');
 
 app.use('/', express.static(PUBLIC_DIR));
 
-app.use('/api/:productId', (req, res) => {
+app.use('/api/products/:productId', (req, res) => {
   const { productId } = req.params;
   db.getProductImages(productId)
     .then((results) => {
