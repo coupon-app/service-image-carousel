@@ -11,7 +11,6 @@ const PUBLIC_DIR = path.resolve(__dirname, '..', 'client', 'public');
 app.use('/', express.static(PUBLIC_DIR));
 
 app.get('/api/products/:productId', (req, res) => {
-  console.log(req.method, 'request at', req.url);
   const { productId } = req.params;
   db.getProductImages(productId)
     .then((results) => {
