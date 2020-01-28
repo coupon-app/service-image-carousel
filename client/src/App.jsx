@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+/* eslint-disable react/prop-types */
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 import ImageViewer from './components/ImageViewer';
 import ThumbnailWrapper from './components/ThumbnailWrapper';
 
@@ -10,24 +12,25 @@ const Wrapper = styled.div`
   width: 700px;
 `;
 
-
-const App = () => {
+const App = ({ productId }) => {
+  const [productImages, setProductImages] = useState([]);
   const [selectedId, setSelectedId] = useState(0);
 
-  // Dummy data
-  const images = [
-    'https://img.grouponcdn.com/deal/cE4adwk8LoGPCSkuGpQoa3yGhpL/cE-2048x1229/v1/c700x420.jpg',
-    'https://img.grouponcdn.com/deal/3XaN3FLaJxXe1DGZSQ2Z7jim5iDk/3X-1280x768/v1/c700x420.jpg',
-    'https://img.grouponcdn.com/deal/3F7KshYRvuCDPF6LVNUBaKcJFFMx/3F-1280x768/v1/c700x420.jpg',
-    'https://img.grouponcdn.com/deal/ncgvaXVoswYer3Lz5X5Md5Vs5TA/nc-1000x600/v1/c700x420.jpg',
-    'https://img.grouponcdn.com/deal/FWtWxYkBosrvhwDLTMTGhnwuhX9/FW-1200x720/v1/c700x420.jpg',
-  ];
+  const imgUrls = productImages.map((image) => image.imgUrl);
+  const thumbnailUrls = productImages.map((image) => image.thumbnailUrl);
+
+  useEffect(() => {
+    axios.get(`/api/products/${productId}`)
+      .then((response) => response.data)
+      .then((images) => setProductImages(images));
+  }, []);
+
 
   return (
     <Wrapper>
-      <ImageViewer imageUrl={images[selectedId]} />
+      <ImageViewer imageUrl={imgUrls[selectedId]} />
       <ThumbnailWrapper
-        imageUrlArray={images}
+        imageUrlArray={thumbnailUrls}
         selectedId={selectedId}
         onChange={(id) => setSelectedId(id)}
       />
