@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import renderer from 'react-test-renderer'
-import 'jest-styled-components'
+import renderer from 'react-test-renderer';
+import 'jest-styled-components';
 import ImageThumbnail from '../../client/src/components/ImageThumbnail';
 
 describe('ImageThumbnail', () => {
@@ -13,7 +13,7 @@ describe('ImageThumbnail', () => {
   });
 
   it('have 4px border when selected', () => {
-    const tree = renderer.create(<ImageThumbnail isSelected={true} />).toJSON();
+    const tree = renderer.create(<ImageThumbnail isSelected />).toJSON();
     expect(tree).toHaveStyleRule('border', /4px/);
   });
 });
