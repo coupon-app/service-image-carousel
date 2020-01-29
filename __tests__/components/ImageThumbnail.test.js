@@ -20,11 +20,11 @@ describe('ImageThumbnail', () => {
     });
   });
 
-  it('has border of more than 0px when selected', () => {
+  it('has border of more than 0 when selected', () => {
     const tree = renderer.create(<ImageThumbnail isSelected />).toJSON();
     const borderDivs = tree.children.filter((element) => element.type === 'div');
     borderDivs.forEach((borderDiv) => {
-      expect(borderDiv).toHaveStyleRule('border', /\b(?!0px\b)\w+/);
+      expect(borderDiv).toHaveStyleRule('border', /\b(?!0\b)\w+/);
     });
   });
 });
