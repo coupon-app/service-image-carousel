@@ -46,7 +46,7 @@ const App = ({ productId }) => {
   return (
     <Wrapper>
       <ImageWrapper>
-        <ImageViewer imageUrl={imgUrls[selectedId]} />
+        <ImageViewer imgUrl={imgUrls[selectedId]} />
         <ButtonsOverlay
           onClick={(step) => stepDisplay(step)}
         />

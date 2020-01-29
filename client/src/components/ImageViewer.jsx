@@ -12,17 +12,17 @@ const Image = styled.img`
 `;
 
 
-const ImageViewer = ({ imageUrl }) => {
-  const [displayUrl, setDisplaySrc] = useState(imageUrl);
+const ImageViewer = ({ imgUrl }) => {
+  const [displayUrl, setDisplaySrc] = useState(imgUrl);
   const [opacity, setOpacity] = useState(1);
 
   useEffect(() => {
     setOpacity(0);
     setTimeout(() => {
-      setDisplaySrc(imageUrl);
+      setDisplaySrc(imgUrl);
       setOpacity(1);
     }, transitionDuration);
-  }, [imageUrl]);
+  }, [imgUrl]);
 
   return (<Image src={displayUrl} opacity={opacity} alt="Deal" />);
 };
