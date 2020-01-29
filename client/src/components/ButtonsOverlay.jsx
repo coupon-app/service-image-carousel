@@ -49,10 +49,10 @@ const Button = styled.div`
 const ButtonsOverlay = ({ onClick }) => (
   <Overlay>
     <Button onClick={() => onClick(-1)}>
-      <ChevronLeft size='1.75rem' />
+      <ChevronLeft size='1.75em' />
     </Button>
     <Button onClick={() => onClick(1)}>
-      <ChevronRight size='1.75rem' />
+      <ChevronRight size='1.75em' />
     </Button>
   </Overlay>
 );
