@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
 import { ChevronLeft } from 'styled-icons/feather/ChevronLeft';
@@ -49,10 +50,10 @@ const Button = styled.div`
 const ButtonsOverlay = ({ onClick }) => (
   <Overlay>
     <Button onClick={() => onClick(-1)}>
-      <ChevronLeft size='1.75em' />
+      <ChevronLeft size="1.75em" />
     </Button>
     <Button onClick={() => onClick(1)}>
-      <ChevronRight size='1.75em' />
+      <ChevronRight size="1.75em" />
     </Button>
   </Overlay>
 );

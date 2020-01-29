@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 
-const transitionDuration = 125 // in milliseconds
+const transitionDuration = 125; // in milliseconds
 
 const Image = styled.img`
   border-radius: 6px;
