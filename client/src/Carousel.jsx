@@ -41,7 +41,7 @@ const App = ({ productId }) => {
     } else {
       setSelectedId(next % numItems);
     }
-  }
+  };
 
   return (
     <Wrapper>
