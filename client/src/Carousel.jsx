@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import ImageViewer from './components/ImageViewer';
@@ -18,46 +18,57 @@ const ImageWrapper = styled.div`
   position: relative;
 `;
 
-const Carousel = ({ productId }) => {
-  const [productImages, setProductImages] = useState([]);
-  const [selectedId, setSelectedId] = useState(0);
 
-  useEffect(() => {
+class Carousel extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { imgUrls: [], thumbnailUrls: [], selectedId: 0 };
+  }
+
+  componentDidMount() {
+    const { productId } = this.props;
+
     axios.get(`/api/products/${productId}`)
       .then((response) => response.data)
-      .then((images) => setProductImages(images));
-  }, []);
+      .then((productImages) => {
+        const imgUrls = productImages.map((image) => image.imgUrl);
+        const thumbnailUrls = productImages.map((image) => image.thumbnailUrl);
+        this.setState(({ imgUrls, thumbnailUrls }));
+      });
+  }
 
-  const imgUrls = productImages.map((image) => image.imgUrl);
-  const thumbnailUrls = productImages.map((image) => image.thumbnailUrl);
-
-  const stepDisplay = (step) => {
+  stepDisplay(step) {
+    const { imgUrls, selectedId } = this.state;
     const numItems = imgUrls.length;
 
     const next = selectedId + step;
 
-    if (next < 0) {
-      setSelectedId(numItems - 1);
-    } else {
-      setSelectedId(next % numItems);
-    }
-  };
+    const nextSelectedId = next < 0
+      ? numItems - 1
+      : next % numItems;
 
-  return (
-    <Wrapper>
-      <ImageWrapper>
-        <ImageViewer imgUrl={imgUrls[selectedId]} />
-        <ButtonsOverlay
-          onClick={(step) => stepDisplay(step)}
+    this.setState({ selectedId: nextSelectedId });
+  }
+
+  render() {
+    const { imgUrls, thumbnailUrls, selectedId } = this.state;
+
+    return (
+      <Wrapper>
+        <ImageWrapper>
+          <ImageViewer imgUrl={imgUrls[selectedId]} />
+          <ButtonsOverlay
+            onClick={(step) => this.stepDisplay(step)}
+          />
+        </ImageWrapper>
+        <ThumbnailWrapper
+          imageUrlArray={thumbnailUrls}
+          selectedId={selectedId}
+          onChange={(id) => this.setState({ selectedId: id })}
         />
-      </ImageWrapper>
-      <ThumbnailWrapper
-        imageUrlArray={thumbnailUrls}
-        selectedId={selectedId}
-        onChange={(id) => setSelectedId(id)}
-      />
-    </Wrapper>
-  );
-};
+      </Wrapper>
+    );
+  }
+}
 
 export default Carousel;
