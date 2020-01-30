@@ -14,6 +14,7 @@ const Overlay = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  transition: opacity 150ms ease-in-out;
 
   /* Prevent overlay from being selected  */
   -moz-user-select: -moz-none;
@@ -39,6 +40,7 @@ const Button = styled.div`
   justify-content: center;
   align-items: center;
   margin: 1.5em;
+  transition: all 150ms ease-in-out;
 
   :hover {
     background-color: white;
