@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import ImageViewer from './components/ImageViewer';
@@ -7,57 +7,80 @@ import ThumbnailWrapper from './components/ThumbnailWrapper';
 import ButtonsOverlay from './components/ButtonsOverlay';
 
 
-const Wrapper = styled.div`
-  display: flex;
-  max-width: 700px;
-  flex-direction: column;
-`;
+class Carousel extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { imgUrls: [], thumbnailUrls: [], selectedId: 0 };
+  }
 
-const ImageWrapper = styled.div`
-  display: flex;
-  position: relative;
-`;
+  componentDidMount() {
+    this.updateProductImgs();
+  }
 
-const App = ({ productId }) => {
-  const [productImages, setProductImages] = useState([]);
-  const [selectedId, setSelectedId] = useState(0);
+  componentDidUpdate(prevProps) {
+    const { productId } = this.props;
 
-  useEffect(() => {
+    if (prevProps.productId !== productId) {
+      this.updateProductImgs();
+    }
+  }
+
+  updateProductImgs() {
+    const { productId } = this.props;
+
     axios.get(`/api/products/${productId}`)
       .then((response) => response.data)
-      .then((images) => setProductImages(images));
-  }, []);
+      .then((productImgs) => {
+        const imgUrls = productImgs.map((img) => img.imgUrl);
+        const thumbnailUrls = productImgs.map((img) => img.thumbnailUrl);
+        this.setState(({ imgUrls, thumbnailUrls }));
+      });
+  }
 
-  const imgUrls = productImages.map((image) => image.imgUrl);
-  const thumbnailUrls = productImages.map((image) => image.thumbnailUrl);
-
-  const stepDisplay = (step) => {
+  stepDisplay(step) {
+    const { imgUrls, selectedId } = this.state;
     const numItems = imgUrls.length;
 
     const next = selectedId + step;
 
-    if (next < 0) {
-      setSelectedId(numItems - 1);
-    } else {
-      setSelectedId(next % numItems);
-    }
+    const nextSelectedId = next < 0
+      ? numItems - 1
+      : next % numItems;
+
+    this.setState({ selectedId: nextSelectedId });
   }
 
-  return (
-    <Wrapper>
-      <ImageWrapper>
-        <ImageViewer imgUrl={imgUrls[selectedId]} />
-        <ButtonsOverlay
-          onClick={(step) => stepDisplay(step)}
-        />
-      </ImageWrapper>
-      <ThumbnailWrapper
-        imageUrlArray={thumbnailUrls}
-        selectedId={selectedId}
-        onChange={(id) => setSelectedId(id)}
-      />
-    </Wrapper>
-  );
-};
+  render() {
+    const { imgUrls, thumbnailUrls, selectedId } = this.state;
 
-export default App;
+    return (
+      <Wrapper>
+        <ImageWrapper>
+          <ImageViewer imgUrl={imgUrls[selectedId]} />
+          <ButtonsOverlay
+            onClick={(step) => this.stepDisplay(step)}
+          />
+        </ImageWrapper>
+        <ThumbnailWrapper
+          imageUrlArray={thumbnailUrls}
+          selectedId={selectedId}
+          onChange={(id) => this.setState({ selectedId: id })}
+        />
+      </Wrapper>
+    );
+  }
+}
+
+
+const Wrapper = styled.div`
+    display: flex;
+    max-width: 700px;
+    flex-direction: column;
+  `;
+
+const ImageWrapper = styled.div`
+    display: flex;
+    position: relative;
+  `;
+
+export default Carousel;

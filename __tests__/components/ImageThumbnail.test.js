@@ -12,19 +12,19 @@ describe('ImageThumbnail', () => {
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
-  it('has a border of 0 when not selected', () => {
+  it('has a border of 0px when not selected', () => {
     const tree = renderer.create(<ImageThumbnail isSelected={false} />).toJSON();
     const borderDivs = tree.children.filter((element) => element.type === 'div');
     borderDivs.forEach((borderDiv) => {
-      expect(borderDiv).toHaveStyleRule('border', /0/);
+      expect(borderDiv).toHaveStyleRule('border', expect.stringContaining('0px'));
     });
   });
 
-  it('has border of more than 0px when selected', () => {
+  it('has border of more than 0 when selected', () => {
     const tree = renderer.create(<ImageThumbnail isSelected />).toJSON();
     const borderDivs = tree.children.filter((element) => element.type === 'div');
     borderDivs.forEach((borderDiv) => {
-      expect(borderDiv).toHaveStyleRule('border', /\b(?!0px\b)\w+/);
+      expect(borderDiv).toHaveStyleRule('border', expect.not.stringContaining('0px'));
     });
   });
 });
