@@ -1,15 +1,9 @@
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 
 const transitionDuration = 125; // in milliseconds
-
-const Image = styled.img`
-  border-radius: 6px;
-  transition: opacity ${transitionDuration}ms ease-in-out;
-  ${(props) => (props.opacity === 1 ? 'opacity: 1' : 'opacity: 0')}
-`;
 
 
 const ImageViewer = ({ imgUrl }) => {
@@ -26,5 +20,17 @@ const ImageViewer = ({ imgUrl }) => {
 
   return (<Image src={displayUrl} opacity={opacity} alt="Deal" />);
 };
+
+ImageViewer.propTypes = {
+  imgUrl: PropTypes.string.isRequired,
+};
+
+
+// Styles
+const Image = styled.img`
+  border-radius: 6px;
+  transition: opacity ${transitionDuration}ms ease-in-out;
+  ${(props) => (props.opacity === 1 ? 'opacity: 1' : 'opacity: 0')}
+`;
 
 export default ImageViewer;

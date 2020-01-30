@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import axios from 'axios';
 import ImageViewer from './components/ImageViewer';
@@ -71,7 +71,12 @@ class Carousel extends React.Component {
   }
 }
 
+Carousel.propTypes = {
+  productId: PropTypes.number.isRequired,
+};
 
+
+// Styles
 const Wrapper = styled.div`
     display: flex;
     max-width: 700px;
