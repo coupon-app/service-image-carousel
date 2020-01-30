@@ -35,7 +35,7 @@ const OuterBorder = styled.div`
   box-sizing: border-box;
   border-radius: 6px;
   transition: border-width 0.25s cubic-bezier(.4,-1.5,.6,2.75);
-  border: solid #0076d6 ${(props) => (props.visible ? '2px' : '0')};
+  border: solid #0076d6 ${(props) => (props.visible ? '2px' : '0px')};
 `;
 
 const InnerBorder = styled.div`
@@ -45,7 +45,7 @@ const InnerBorder = styled.div`
   box-sizing: border-box;
   border-radius: 6px;
   transition: border-width 0.25s;
-  border: solid white ${(props) => (props.visible ? '4px' : '0')};
+  border: solid white ${(props) => (props.visible ? '4px' : '0px')};
 `;
 
 export default ImageThumbnail;
