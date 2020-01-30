@@ -22,7 +22,11 @@ const ImageViewer = ({ imgUrl }) => {
 };
 
 ImageViewer.propTypes = {
-  imgUrl: PropTypes.string.isRequired,
+  imgUrl: PropTypes.string,
+};
+
+ImageViewer.defaultProps = {
+  imgUrl: '',
 };
 
 
