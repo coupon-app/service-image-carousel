@@ -7,18 +7,6 @@ import ThumbnailWrapper from './components/ThumbnailWrapper';
 import ButtonsOverlay from './components/ButtonsOverlay';
 
 
-const Wrapper = styled.div`
-  display: flex;
-  max-width: 700px;
-  flex-direction: column;
-`;
-
-const ImageWrapper = styled.div`
-  display: flex;
-  position: relative;
-`;
-
-
 class Carousel extends React.Component {
   constructor(props) {
     super(props);
@@ -26,13 +14,25 @@ class Carousel extends React.Component {
   }
 
   componentDidMount() {
+    this.updateProductImgs();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { productId } = this.props;
+
+    if (prevProps.productId !== productId) {
+      this.updateProductImgs();
+    }
+  }
+
+  updateProductImgs() {
     const { productId } = this.props;
 
     axios.get(`/api/products/${productId}`)
       .then((response) => response.data)
-      .then((productImages) => {
-        const imgUrls = productImages.map((image) => image.imgUrl);
-        const thumbnailUrls = productImages.map((image) => image.thumbnailUrl);
+      .then((productImgs) => {
+        const imgUrls = productImgs.map((img) => img.imgUrl);
+        const thumbnailUrls = productImgs.map((img) => img.thumbnailUrl);
         this.setState(({ imgUrls, thumbnailUrls }));
       });
   }
@@ -70,5 +70,17 @@ class Carousel extends React.Component {
     );
   }
 }
+
+
+const Wrapper = styled.div`
+    display: flex;
+    max-width: 700px;
+    flex-direction: column;
+  `;
+
+const ImageWrapper = styled.div`
+    display: flex;
+    position: relative;
+  `;
 
 export default Carousel;
