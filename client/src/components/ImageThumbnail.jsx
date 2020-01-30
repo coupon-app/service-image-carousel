@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 
@@ -10,6 +10,18 @@ const ImageThumbnail = ({ src, isSelected, onClick }) => (
     <OuterBorder visible={isSelected} />
   </Wrapper>
 );
+
+ImageThumbnail.propTypes = {
+  src: PropTypes.string.isRequired,
+  isSelected: PropTypes.bool,
+  onClick: PropTypes.func,
+};
+
+ImageThumbnail.defaultProps = {
+  isSelected: false,
+  onClick: () => { },
+};
+
 
 // Styles
 const Wrapper = styled.div`

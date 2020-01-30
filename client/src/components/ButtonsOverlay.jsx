@@ -1,10 +1,27 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { ChevronLeft } from 'styled-icons/feather/ChevronLeft';
 import { ChevronRight } from 'styled-icons/feather/ChevronRight';
 
 
+const ButtonsOverlay = ({ onClick }) => (
+  <Overlay>
+    <Button onClick={() => onClick(-1)}>
+      <ChevronLeft size="1.75em" />
+    </Button>
+    <Button onClick={() => onClick(1)}>
+      <ChevronRight size="1.75em" />
+    </Button>
+  </Overlay>
+);
+
+ButtonsOverlay.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};
+
+
+// Styles
 const Overlay = styled.div`
   position: absolute;
   width: 100%;
@@ -29,7 +46,6 @@ const Overlay = styled.div`
   }
 `;
 
-
 const Button = styled.div`
   display: flex;
   border-radius: 50%;
@@ -47,17 +63,5 @@ const Button = styled.div`
     color: #333;
   }
 `;
-
-
-const ButtonsOverlay = ({ onClick }) => (
-  <Overlay>
-    <Button onClick={() => onClick(-1)}>
-      <ChevronLeft size="1.75em" />
-    </Button>
-    <Button onClick={() => onClick(1)}>
-      <ChevronRight size="1.75em" />
-    </Button>
-  </Overlay>
-);
 
 export default ButtonsOverlay;
