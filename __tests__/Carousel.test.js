@@ -12,4 +12,20 @@ describe('Carousel', () => {
     const wrapper = shallow(<Carousel />);
     expect(wrapper.find('ButtonsOverlay').props().onClick).toBeInstanceOf(Function);
   });
+
+  it('passes currently selected image to ImageViewer', () => {
+    const wrapper = shallow(<Carousel />);
+    wrapper.instance().setState({ imgUrls: ['a', 'b'], selectedId: 1 });
+    wrapper.update();
+
+    expect(wrapper.find('ImageViewer').props().imgUrl).toBe('b');
+  });
+
+  it('invokes updateProductImgs method when provided a new productId', () => {
+    const wrapper = shallow(<Carousel productId={1} />);
+    const mockUpdateImg = jest.fn();
+    wrapper.instance().updateProductImgs = mockUpdateImg;
+    wrapper.setProps({ productId: 2 });
+    expect(mockUpdateImg).toBeCalledTimes(1);
+  });
 });
