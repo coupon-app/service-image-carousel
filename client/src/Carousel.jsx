@@ -18,7 +18,7 @@ const ImageWrapper = styled.div`
   position: relative;
 `;
 
-const App = ({ productId }) => {
+const Carousel = ({ productId }) => {
   const [productImages, setProductImages] = useState([]);
   const [selectedId, setSelectedId] = useState(0);
 
@@ -60,4 +60,4 @@ const App = ({ productId }) => {
   );
 };
 
-export default App;
+export default Carousel;
