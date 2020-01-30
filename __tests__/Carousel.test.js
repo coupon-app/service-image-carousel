@@ -28,4 +28,23 @@ describe('Carousel', () => {
     wrapper.setProps({ productId: 2 });
     expect(mockUpdateImg).toBeCalledTimes(1);
   });
+
+  it('callback updates the imgUrl prop passed to ImageViewer', () => {
+    const wrapper = shallow(<Carousel />);
+    // wrapper.instance().updateProductImgs = jest.fn();
+    wrapper.setState({ imgUrls: ['a', 'b', 'c'] });
+    wrapper.instance().stepDisplay(1);
+    wrapper.update();
+    expect(wrapper.find('ImageViewer').props().imgUrl).toBe('b');
+  });
+
+  it('callback wraps image navigation', () => {
+    const wrapper = shallow(<Carousel />);
+    wrapper.setState({ imgUrls: ['a', 'b', 'c'] });
+    wrapper.instance().stepDisplay(-1);
+    expect(wrapper.find('ImageViewer').props().imgUrl).toBe('c');
+    wrapper.setState({ selectedId: 2 });
+    wrapper.instance().stepDisplay(1);
+    expect(wrapper.find('ImageViewer').props().imgUrl).toBe('a');
+  });
 });
