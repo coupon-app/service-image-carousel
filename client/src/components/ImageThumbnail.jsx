@@ -12,12 +12,13 @@ const ImageThumbnail = ({ src, isSelected, onClick }) => (
 );
 
 ImageThumbnail.propTypes = {
-  src: PropTypes.string.isRequired,
+  src: PropTypes.string,
   isSelected: PropTypes.bool,
   onClick: PropTypes.func,
 };
 
 ImageThumbnail.defaultProps = {
+  src: '',
   isSelected: false,
   onClick: () => { },
 };
