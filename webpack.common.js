@@ -4,9 +4,7 @@ const ENTRY = path.resolve(__dirname, 'client', 'src', 'index.jsx');
 const OUTPUT_PATH = path.resolve(__dirname, 'client', 'public');
 const OUTPUT_FILENAME = 'bundle.js';
 
-
 module.exports = {
-  mode: 'development',
   entry: ENTRY,
   output: {
     path: OUTPUT_PATH,
@@ -30,5 +28,4 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
-  devtool: 'inline-source-map',
 };
