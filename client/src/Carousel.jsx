@@ -72,7 +72,11 @@ class Carousel extends React.Component {
 }
 
 Carousel.propTypes = {
-  productId: PropTypes.number.isRequired,
+  productId: PropTypes.number,
+};
+
+Carousel.defaultProps = {
+  productId: 1,
 };
 
 

@@ -16,7 +16,7 @@ const ImageViewer = ({ imgUrl }) => {
     setTimeout(() => {
       setTopImgSrc(imgUrl);
       setTopVisible(true);
-    }, 25);
+    }, 30);
   }, [imgUrl]);
 
   return (
