@@ -3,22 +3,28 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 
-const transitionDuration = 125; // in milliseconds
-
-
 const ImageViewer = ({ imgUrl }) => {
-  const [displayUrl, setDisplaySrc] = useState(imgUrl);
-  const [opacity, setOpacity] = useState(1);
+  const [topImgSrc, setTopImgSrc] = useState(imgUrl);
+  const [bottomImgSrc, setBottomImgSrc] = useState('');
+  const [topVisible, setTopVisible] = useState(true);
 
   useEffect(() => {
-    setOpacity(0);
+    // Update bottom img
+    setBottomImgSrc(topImgSrc);
+    setTopVisible(false);
+
     setTimeout(() => {
-      setDisplaySrc(imgUrl);
-      setOpacity(1);
-    }, transitionDuration);
+      setTopImgSrc(imgUrl);
+      setTopVisible(true);
+    }, 25);
   }, [imgUrl]);
 
-  return (<Image src={displayUrl} opacity={opacity} alt="Deal" />);
+  return (
+    <div>
+      <Image src={bottomImgSrc} visible alt="Deal" />
+      <Image src={topImgSrc} visible={topVisible} alt="Deal" />
+    </div>
+  );
 };
 
 ImageViewer.propTypes = {
@@ -33,8 +39,11 @@ ImageViewer.defaultProps = {
 // Styles
 const Image = styled.img`
   border-radius: 6px;
-  transition: opacity ${transitionDuration}ms ease-in-out;
-  ${(props) => (props.opacity === 1 ? 'opacity: 1' : 'opacity: 0')}
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: ${(props) => (props.visible ? 'opacity ease 400ms' : null)};
+  ${(props) => (props.visible ? 'opacity: 1;' : 'opacity: 0;')}
 `;
 
 export default ImageViewer;

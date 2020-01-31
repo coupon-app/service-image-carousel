@@ -79,13 +79,14 @@ Carousel.propTypes = {
 // Styles
 const Wrapper = styled.div`
     display: flex;
-    max-width: 700px;
     flex-direction: column;
   `;
 
 const ImageWrapper = styled.div`
     display: flex;
     position: relative;
+    width: 700px;
+    height: 420px;
   `;
 
 export default Carousel;
