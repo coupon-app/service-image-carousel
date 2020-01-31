@@ -12,12 +12,13 @@ const ImageThumbnail = ({ src, isSelected, onClick }) => (
 );
 
 ImageThumbnail.propTypes = {
-  src: PropTypes.string.isRequired,
+  src: PropTypes.string,
   isSelected: PropTypes.bool,
   onClick: PropTypes.func,
 };
 
 ImageThumbnail.defaultProps = {
+  src: '',
   isSelected: false,
   onClick: () => { },
 };
@@ -46,7 +47,7 @@ const OuterBorder = styled.div`
   width: 100%;
   box-sizing: border-box;
   border-radius: 6px;
-  transition: border-width 0.25s cubic-bezier(.4,-1.5,.6,2.75);
+  transition: border-width 250ms cubic-bezier(.4,-1.5,.6,2.75);
   border: solid #0076d6 ${(props) => (props.visible ? '2px' : '0px')};
 `;
 
@@ -56,7 +57,7 @@ const InnerBorder = styled.div`
   width: 100%;
   box-sizing: border-box;
   border-radius: 6px;
-  transition: border-width 0.25s;
+  transition: border-width 250ms;
   border: solid white ${(props) => (props.visible ? '4px' : '0px')};
 `;
 

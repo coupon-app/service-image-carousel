@@ -72,20 +72,25 @@ class Carousel extends React.Component {
 }
 
 Carousel.propTypes = {
-  productId: PropTypes.number.isRequired,
+  productId: PropTypes.number,
+};
+
+Carousel.defaultProps = {
+  productId: 1,
 };
 
 
 // Styles
 const Wrapper = styled.div`
     display: flex;
-    max-width: 700px;
     flex-direction: column;
   `;
 
 const ImageWrapper = styled.div`
     display: flex;
     position: relative;
+    width: 700px;
+    height: 420px;
   `;
 
 export default Carousel;
