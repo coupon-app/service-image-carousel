@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Placeholder from './Placeholder';
 
 
 const ImageViewer = ({ imgUrl }) => {
   const [topImgSrc, setTopImgSrc] = useState(imgUrl);
   const [bottomImgSrc, setBottomImgSrc] = useState('');
   const [topVisible, setTopVisible] = useState(true);
+  const [initLoaded, setInitLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     // Update bottom img
@@ -16,13 +19,22 @@ const ImageViewer = ({ imgUrl }) => {
 
     setTimeout(() => {
       setTopVisible(true);
-    }, 30);
+    }, 20);
   }, [imgUrl]);
 
   return (
     <div>
-      <Image src={bottomImgSrc} visible alt="Deal" />
-      <Image src={topImgSrc} visible={topVisible} alt="Deal" />
+      {!initLoaded ? <Placeholder /> : null}
+      <Image src={bottomImgSrc} visible={initLoaded} />
+      <Image
+        src={topImgSrc}
+        visible={topVisible && loaded}
+        onLoad={() => {
+          setLoaded(true);
+          setInitLoaded(true);
+        }}
+        alt="Product"
+      />
     </div>
   );
 };
@@ -42,7 +54,7 @@ const Image = styled.img`
   position: absolute;
   width: 100%;
   height: 100%;
-  transition: ${(props) => (props.visible ? 'opacity ease 400ms' : null)};
+  ${(props) => (props.visible ? 'transition: opacity ease-in 200ms' : null)};
   ${(props) => (props.visible ? 'opacity: 1;' : 'opacity: 0;')}
 `;
 
