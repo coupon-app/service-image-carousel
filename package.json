@@ -8,7 +8,8 @@
     "server-dev": "nodemon server",
     "dev": "concurrently \"npm:client-dev\" \"npm:server-dev\"",
     "seed": "node seed",
-    "test": "jest"
+    "test": "jest",
+    "test-watch": "jest --watchAll"
   },
   "repository": {
     "type": "git",
