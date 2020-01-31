@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import Carousel from '../client/src/Carousel';
 
 describe('Carousel', () => {
@@ -46,5 +46,22 @@ describe('Carousel', () => {
     wrapper.setState({ selectedId: 2 });
     wrapper.instance().stepDisplay(1);
     expect(wrapper.find('ImageViewer').props().imgUrl).toBe('a');
+  });
+
+  it('changes to correct image when next button is pressed', () => {
+    const wrapper = mount(<Carousel />);
+    wrapper.setState({ imgUrls: ['a', 'b', 'c'] });
+    wrapper.find('ButtonsOverlay__Button').last().simulate('click');
+    expect(wrapper.state('selectedId')).toBe(1);
+    wrapper.find('ButtonsOverlay__Button').first().simulate('click');
+    expect(wrapper.state('selectedId')).toBe(0);
+  });
+
+  it('changes to correct image when a thumbnail is pressed', () => {
+    const wrapper = mount(<Carousel />);
+    wrapper.setState({ thumbnailUrls: ['a', 'b', 'c'] });
+    // console.log(wrapper.find('ImageThumbnail').debug());
+    wrapper.find('ImageThumbnail').last().simulate('click');
+    expect(wrapper.state('selectedId')).toBe(2);
   });
 });
