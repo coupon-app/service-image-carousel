@@ -11,10 +11,10 @@ const ImageViewer = ({ imgUrl }) => {
   useEffect(() => {
     // Update bottom img
     setBottomImgSrc(topImgSrc);
+    setTopImgSrc(imgUrl);
     setTopVisible(false);
 
     setTimeout(() => {
-      setTopImgSrc(imgUrl);
       setTopVisible(true);
     }, 30);
   }, [imgUrl]);
