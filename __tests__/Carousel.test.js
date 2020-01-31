@@ -10,6 +10,8 @@ describe('Carousel', () => {
 
   it('provides an onClick callback to ButtonsOverlay', () => {
     const wrapper = shallow(<Carousel />);
+    // Set multiple images so ButtonsOverlay renders
+    wrapper.setState({ imgUrls: ['a', 'b'], thumbnailUrls: ['c', 'd'] });
     expect(wrapper.find('ButtonsOverlay').props().onClick).toBeInstanceOf(Function);
   });
 
@@ -60,8 +62,19 @@ describe('Carousel', () => {
   it('changes to correct image when a thumbnail is pressed', () => {
     const wrapper = mount(<Carousel />);
     wrapper.setState({ thumbnailUrls: ['a', 'b', 'c'] });
-    // console.log(wrapper.find('ImageThumbnail').debug());
     wrapper.find('ImageThumbnail').last().simulate('click');
     expect(wrapper.state('selectedId')).toBe(2);
+  });
+
+  it('does not render ThumbnailWrapper if there is only one thumbnail', () => {
+    const wrapper = mount(<Carousel />);
+    wrapper.setState({ imgUrls: ['a'], thumbnailUrls: ['b'] });
+    expect(wrapper.find('ThumbnailWrapper')).not.toExist();
+  });
+
+  it('does not render ButtonsOverlay if there is only one image', () => {
+    const wrapper = mount(<Carousel />);
+    wrapper.setState({ imgUrls: ['a'], thumbnailUrls: ['b'] });
+    expect(wrapper.find('ButtonsOverlay')).not.toExist();
   });
 });

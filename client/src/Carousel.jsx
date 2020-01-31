@@ -57,15 +57,21 @@ class Carousel extends React.Component {
       <Wrapper>
         <ImageWrapper>
           <ImageViewer imgUrl={imgUrls[selectedId]} />
-          <ButtonsOverlay
-            onClick={(step) => this.stepDisplay(step)}
-          />
+          {imgUrls.length > 1
+            ? (
+              <ButtonsOverlay
+                onClick={(step) => this.stepDisplay(step)}
+              />
+            ) : null}
         </ImageWrapper>
-        <ThumbnailWrapper
-          imageUrlArray={thumbnailUrls}
-          selectedId={selectedId}
-          onChange={(id) => this.setState({ selectedId: id })}
-        />
+        {thumbnailUrls.length > 1
+          ? (
+            <ThumbnailWrapper
+              imageUrlArray={thumbnailUrls}
+              selectedId={selectedId}
+              onChange={(id) => this.setState({ selectedId: id })}
+            />
+          ) : null}
       </Wrapper>
     );
   }
