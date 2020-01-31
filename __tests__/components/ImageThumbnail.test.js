@@ -15,10 +15,4 @@ describe('ImageThumbnail', () => {
     expect(wrapper.find('ImageThumbnail__InnerBorder').props().visible).toBeFalsy();
     expect(wrapper.find('ImageThumbnail__OuterBorder').props().visible).toBeFalsy();
   });
-
-  it('sets inner border to invisible when not selected', () => {
-    const wrapper = shallow(<ImageThumbnail isSelected />);
-    expect(wrapper.find('ImageThumbnail__InnerBorder').props().visible).toBeTruthy();
-    expect(wrapper.find('ImageThumbnail__OuterBorder').props().visible).toBeTruthy();
-  });
 });

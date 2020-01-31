@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Placeholder from './Placeholder';
 
 
-const ImageThumbnail = ({ src, isSelected, onClick }) => (
-  <Wrapper onClick={onClick}>
-    <Image src={src} alt="Deal thumbnail" />
-    <InnerBorder visible={isSelected} />
-    <OuterBorder visible={isSelected} />
-  </Wrapper>
-);
+const ImageThumbnail = ({ src, isSelected, onClick }) => {
+  const [loaded, setLoaded] = useState(false);
+  const visible = isSelected && loaded;
+
+  return (
+    <Wrapper onClick={onClick}>
+      {!loaded ? <Placeholder /> : null}
+      <Image
+        src={src}
+        visible={loaded}
+        onLoad={() => setLoaded(true)}
+        alt="Deal thumbnail"
+      />
+      <InnerBorder visible={visible} />
+      <OuterBorder visible={visible} />
+    </Wrapper>
+  );
+};
 
 ImageThumbnail.propTypes = {
   src: PropTypes.string,
@@ -39,6 +51,8 @@ const Image = styled.img`
   height: 100%;
   width: 100%;
   border-radius: 6px;
+  opacity: ${(props) => (props.visible ? '1' : '0')};
+  transition: opacity ease-in 200ms;
 `;
 
 const OuterBorder = styled.div`
