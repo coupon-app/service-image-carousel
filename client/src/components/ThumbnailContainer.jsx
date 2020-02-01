@@ -33,7 +33,6 @@ ThumbnailContainer.defaultProps = {
 };
 
 
-// Styles
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;

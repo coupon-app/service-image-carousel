@@ -21,7 +21,6 @@ Controls.propTypes = {
 };
 
 
-// Styles
 const Overlay = styled.div`
   position: absolute;
   width: 100%;
