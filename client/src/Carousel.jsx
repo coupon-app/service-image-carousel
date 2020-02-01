@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import axios from 'axios';
 import Display from './components/Display';
+import Award from './components/Award';
 import ThumbnailContainer from './components/ThumbnailContainer';
 import Controls from './components/Controls';
 
@@ -57,6 +58,7 @@ class Carousel extends React.Component {
       <Wrapper>
         <ImageWrapper>
           <Display imgUrl={imgUrls[selectedId]} />
+          <Award />
           {imgUrls.length > 1
             ? (
               <Controls
