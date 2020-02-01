@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import axios from 'axios';
 import Display from './components/Display';
+import Badge from './components/Badge';
 import ThumbnailContainer from './components/ThumbnailContainer';
 import Controls from './components/Controls';
 
@@ -57,6 +58,7 @@ class Carousel extends React.Component {
       <Wrapper>
         <ImageWrapper>
           <Display imgUrl={imgUrls[selectedId]} />
+          <Badge type="expiring" />
           {imgUrls.length > 1
             ? (
               <Controls
@@ -86,7 +88,6 @@ Carousel.defaultProps = {
 };
 
 
-// Styles
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
