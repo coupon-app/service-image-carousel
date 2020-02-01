@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Placeholder from './Placeholder';
 
 
-const ImageThumbnail = ({ src, isSelected, onClick }) => {
+const Thumbnail = ({ src, isSelected, onClick }) => {
   const [loaded, setLoaded] = useState(false);
   const visible = isSelected && loaded;
 
@@ -23,13 +23,13 @@ const ImageThumbnail = ({ src, isSelected, onClick }) => {
   );
 };
 
-ImageThumbnail.propTypes = {
+Thumbnail.propTypes = {
   src: PropTypes.string,
   isSelected: PropTypes.bool,
   onClick: PropTypes.func,
 };
 
-ImageThumbnail.defaultProps = {
+Thumbnail.defaultProps = {
   src: '',
   isSelected: false,
   onClick: () => { },
@@ -75,4 +75,4 @@ const InnerBorder = styled.div`
   border: solid white ${(props) => (props.visible ? '4px' : '0px')};
 `;
 
-export default ImageThumbnail;
+export default Thumbnail;

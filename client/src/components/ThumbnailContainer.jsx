@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import ImageThumbnail from './ImageThumbnail';
+import Thumbnail from './Thumbnail';
 
 
-const ThumbnailWrapper = ({ imageUrlArray, selectedId, onChange }) => {
+const ThumbnailContainer = ({ imageUrlArray, selectedId, onChange }) => {
   const Thumbnails = imageUrlArray.map((imageUrl, i) => (
-    <ImageThumbnail
+    <Thumbnail
       src={imageUrl}
       key={imageUrl}
       onClick={() => onChange(i)}
@@ -21,13 +21,13 @@ const ThumbnailWrapper = ({ imageUrlArray, selectedId, onChange }) => {
   );
 };
 
-ThumbnailWrapper.propTypes = {
+ThumbnailContainer.propTypes = {
   imageUrlArray: PropTypes.arrayOf(PropTypes.string).isRequired,
   selectedId: PropTypes.number,
   onChange: PropTypes.func,
 };
 
-ThumbnailWrapper.defaultProps = {
+ThumbnailContainer.defaultProps = {
   selectedId: 0,
   onChange: () => { },
 };
@@ -40,4 +40,4 @@ const Wrapper = styled.div`
   margin-top: 10px;
 `;
 
-export default ThumbnailWrapper;
+export default ThumbnailContainer;

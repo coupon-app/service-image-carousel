@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Placeholder from './Placeholder';
 
 
-const ImageViewer = ({ imgUrl }) => {
+const Display = ({ imgUrl }) => {
   const [topImgSrc, setTopImgSrc] = useState(imgUrl);
   const [bottomImgSrc, setBottomImgSrc] = useState('');
   const [topVisible, setTopVisible] = useState(true);
@@ -39,11 +39,11 @@ const ImageViewer = ({ imgUrl }) => {
   );
 };
 
-ImageViewer.propTypes = {
+Display.propTypes = {
   imgUrl: PropTypes.string,
 };
 
-ImageViewer.defaultProps = {
+Display.defaultProps = {
   imgUrl: '',
 };
 
@@ -58,4 +58,4 @@ const Image = styled.img`
   ${(props) => (props.visible ? 'opacity: 1;' : 'opacity: 0;')}
 `;
 
-export default ImageViewer;
+export default Display;

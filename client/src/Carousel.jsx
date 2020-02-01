@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import axios from 'axios';
-import ImageViewer from './components/ImageViewer';
-import ThumbnailWrapper from './components/ThumbnailWrapper';
-import ButtonsOverlay from './components/ButtonsOverlay';
+import Display from './components/Display';
+import ThumbnailContainer from './components/ThumbnailContainer';
+import Controls from './components/Controls';
 
 
 class Carousel extends React.Component {
@@ -56,17 +56,17 @@ class Carousel extends React.Component {
     return (
       <Wrapper>
         <ImageWrapper>
-          <ImageViewer imgUrl={imgUrls[selectedId]} />
+          <Display imgUrl={imgUrls[selectedId]} />
           {imgUrls.length > 1
             ? (
-              <ButtonsOverlay
+              <Controls
                 onClick={(step) => this.stepDisplay(step)}
               />
             ) : null}
         </ImageWrapper>
         {thumbnailUrls.length > 1
           ? (
-            <ThumbnailWrapper
+            <ThumbnailContainer
               imageUrlArray={thumbnailUrls}
               selectedId={selectedId}
               onChange={(id) => this.setState({ selectedId: id })}

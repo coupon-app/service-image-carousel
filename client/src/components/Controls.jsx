@@ -5,7 +5,7 @@ import { ChevronLeft } from 'styled-icons/feather/ChevronLeft';
 import { ChevronRight } from 'styled-icons/feather/ChevronRight';
 
 
-const ButtonsOverlay = ({ onClick }) => (
+const Controls = ({ onClick }) => (
   <Overlay>
     <Button onClick={() => onClick(-1)}>
       <ChevronLeft size="1.75em" />
@@ -16,7 +16,7 @@ const ButtonsOverlay = ({ onClick }) => (
   </Overlay>
 );
 
-ButtonsOverlay.propTypes = {
+Controls.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
@@ -64,4 +64,4 @@ const Button = styled.div`
   }
 `;
 
-export default ButtonsOverlay;
+export default Controls;
