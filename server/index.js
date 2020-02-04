@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 const express = require('express');
+const cors = require('cors');
 const path = require('path');
 const db = require('../database');
 
@@ -7,6 +8,8 @@ const app = express();
 const PORT = process.env.PORT || 3002;
 
 const PUBLIC_DIR = path.resolve(__dirname, '..', 'client', 'public');
+
+app.use(cors());
 
 app.use('/', express.static(PUBLIC_DIR));
 
