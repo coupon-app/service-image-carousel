@@ -1,9 +1,10 @@
 /* eslint-disable no-console */
 const mongoose = require('mongoose');
 
+const URI = 'mongodb://database/carousel';
 
-const onConnect = new Promise((resolve, reject) => {
-  mongoose.connect('mongodb://localhost/carousel', { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+const connect = new Promise((resolve, reject) => {
+  mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
     if (err) {
       console.log(err);
       reject(err);
@@ -14,6 +15,7 @@ const onConnect = new Promise((resolve, reject) => {
   });
 });
 
+const close = () => mongoose.connection.close();
 
 const ImageSchema = new mongoose.Schema({
   productId: Number,
@@ -27,20 +29,23 @@ const Image = mongoose.model('Image', ImageSchema);
 
 
 const saveImages = (imageArray) => {
-  imageArray.forEach((img) => {
+  const imageStoragePromises = imageArray.map((img) => new Promise((resolve, reject) => {
     Image.findOneAndUpdate(
       { productId: img.productId, imgId: img.imdId },
       img,
       { upsert: true, useFindAndModify: true },
       (err) => {
         if (err) {
-          console.log(err);
+          reject(err);
         } else {
           console.log('Added product', img.productId, 'image', img.imgId);
+          resolve();
         }
       },
     );
-  });
+  }));
+
+  return Promise.all(imageStoragePromises);
 };
 
 
@@ -56,4 +61,6 @@ const getProductImages = (productId) => new Promise((resolve, reject) => {
 });
 
 
-module.exports = { saveImages, getProductImages, onConnect };
+module.exports = {
+  saveImages, getProductImages, connect, close,
+};
