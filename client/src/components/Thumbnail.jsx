@@ -36,7 +36,6 @@ Thumbnail.defaultProps = {
 };
 
 
-// Styles
 const Wrapper = styled.div`
   display: flex;
   position: relative;

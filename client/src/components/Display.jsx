@@ -48,7 +48,6 @@ Display.defaultProps = {
 };
 
 
-// Styles
 const Image = styled.img`
   border-radius: 6px;
   position: absolute;
