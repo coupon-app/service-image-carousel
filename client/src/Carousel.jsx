@@ -29,7 +29,7 @@ class Carousel extends React.Component {
   updateProductImgs() {
     const { productId } = this.props;
 
-    axios.get(`http://localhost:3002/api/products/${productId}`)
+    axios.get(`/api/products/${productId}`)
       .then((response) => response.data)
       .then((productImgs) => {
         const imgUrls = productImgs.map((img) => img.imgUrl);

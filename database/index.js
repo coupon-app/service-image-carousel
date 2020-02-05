@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 const mongoose = require('mongoose');
 
-const URI = 'mongodb://localhost/carousel';
+const URI = 'mongodb://database/carousel';
 
 const connect = new Promise((resolve, reject) => {
   mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
