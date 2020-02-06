@@ -1,5 +1,5 @@
 # Build on the node 12.14.1 image
-FROM node:12.14.1
+FROM node:12.14.1-alpine3.11
 
 # Create the /src/app directory
 RUN mkdir -p /src/app
@@ -11,10 +11,10 @@ WORKDIR /src/app
 COPY . /src/app
 
 # Install dependencies
-RUN yarn install
+RUN npm install --only=prod
 
 # Build production bundle
-RUN yarn build
+RUN npm run build
 
 # Expose port 3000
 EXPOSE 3000
