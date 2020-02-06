@@ -1,19 +1,19 @@
 /* eslint-disable no-console */
 const express = require('express');
 const { exec } = require('child_process');
+const uploadBundle = require('./s3');
 
 const app = express();
 const PORT = 3000;
 
 app.post('/hooks/github', (req, res) => {
   res.send();
-  const rebuildScript = exec('sh rebuild.sh');
-  rebuildScript.stdout.on('data', (data) => {
-    console.log(data);
-  });
-
-  rebuildScript.stderr.on('data', (data) => {
-    console.error(data);
+  exec('sh rebuild.sh', (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      uploadBundle();
+    }
   });
 });
 
