@@ -34,6 +34,10 @@ const uploadBundle = (options = { dev: false }) => new Promise((resolve, reject)
     ContentType: 'application/javascript',
   };
 
+  if (!dev) {
+    params.ContentEncoding = 'gzip';
+  }
+
   s3.upload(params, (err) => {
     if (err) {
       console.log(err);
