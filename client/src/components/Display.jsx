@@ -6,7 +6,7 @@ import Placeholder from './Placeholder';
 
 const Display = ({ imgUrl }) => {
   const [topImgSrc, setTopImgSrc] = useState(imgUrl);
-  const [bottomImgSrc, setBottomImgSrc] = useState('');
+  const [bottomImgSrc, setBottomImgSrc] = useState(undefined);
   const [topVisible, setTopVisible] = useState(true);
   const [initLoaded, setInitLoaded] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -53,6 +53,9 @@ const Image = styled.img`
   position: absolute;
   width: 100%;
   height: 100%;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
   ${(props) => (props.visible ? 'transition: opacity ease-in 200ms' : null)};
   ${(props) => (props.visible ? 'opacity: 1;' : 'opacity: 0;')}
 `;
