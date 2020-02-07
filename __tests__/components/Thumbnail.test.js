@@ -20,10 +20,4 @@ describe('Thumbnail', () => {
     const wrapper = shallow(<Thumbnail />);
     expect(wrapper.find('Placeholder')).toExist();
   });
-
-  it('does not render a Placeholder after the image has loaded', () => {
-    const wrapper = shallow(<Thumbnail />);
-    wrapper.find('Thumbnail__Image').dive().simulate('load');
-    expect(wrapper.find('Placeholder')).not.toExist();
-  });
 });

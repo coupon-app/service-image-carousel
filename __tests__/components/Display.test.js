@@ -26,10 +26,4 @@ describe('Display', () => {
     const wrapper = shallow(<Display />);
     expect(wrapper.find('Placeholder')).toExist();
   });
-
-  it('does not render a Placeholder after the image has loaded', () => {
-    const wrapper = shallow(<Display />);
-    wrapper.find('Display__DynamicImage').last().dive().simulate('load');
-    expect(wrapper.find('Placeholder')).not.toExist();
-  });
 });

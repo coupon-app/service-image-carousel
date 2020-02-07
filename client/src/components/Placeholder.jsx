@@ -16,7 +16,7 @@ const Placeholder = styled.div`
         background-position: 100% 0
     }
     50%{
-        background-position: 100% 0
+        background-position: -100% 0
     }
     100%{
         background-position: -100% 0

@@ -8,7 +8,6 @@ const Display = ({ imgUrl }) => {
   const [topImgSrc, setTopImgSrc] = useState(imgUrl);
   const [bottomImgSrc, setBottomImgSrc] = useState(undefined);
   const [topVisible, setTopVisible] = useState(true);
-  const [initLoaded, setInitLoaded] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -24,14 +23,12 @@ const Display = ({ imgUrl }) => {
 
   return (
     <div>
-      {!initLoaded ? <Placeholder /> : null}
-      {bottomImgSrc ? <Image src={bottomImgSrc} alt="Product animation" /> : null}
+      {bottomImgSrc ? <Image src={bottomImgSrc} alt="Product animation" /> : <Placeholder />}
       <DynamicImage
         src={topImgSrc}
         visible={topVisible && loaded}
         onLoad={() => {
           setLoaded(true);
-          setInitLoaded(true);
         }}
         alt="Product"
       />

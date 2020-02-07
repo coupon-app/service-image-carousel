@@ -10,7 +10,7 @@ const Thumbnail = ({ src, isSelected, onClick }) => {
 
   return (
     <Wrapper onClick={onClick}>
-      {!loaded ? <Placeholder /> : null}
+      <Placeholder />
       <Image
         src={src}
         visible={loaded}
