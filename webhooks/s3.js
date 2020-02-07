@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
+require('dotenv').config();
 const AWS = require('aws-sdk');
 const fs = require('fs');
 const { execSync } = require('child_process');
-require('dotenv').config();
+const path = require('path');
 
 const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_ID,
@@ -23,7 +24,9 @@ const uploadBundle = (options = { dev: false }) => new Promise((resolve, reject)
   }
 
   execSync(`npm run ${script}`);
-  const bundleContent = fs.readFileSync('../client/public/bundle.js');
+
+  const bundlePath = path.resolve(__dirname, '..', 'client', 'public', 'bundle.js');
+  const bundleContent = fs.readFileSync(bundlePath);
   const params = {
     Bucket: process.env.S3_BUCKET,
     Key: uploadFilename,
