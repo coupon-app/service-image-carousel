@@ -25,8 +25,8 @@ const Display = ({ imgUrl }) => {
   return (
     <div>
       {!initLoaded ? <Placeholder /> : null}
-      <Image src={bottomImgSrc} visible={initLoaded} alt="Product animation" />
-      <Image
+      {bottomImgSrc ? <Image src={bottomImgSrc} alt="Product animation" /> : null}
+      <DynamicImage
         src={topImgSrc}
         visible={topVisible && loaded}
         onLoad={() => {
@@ -53,9 +53,9 @@ const Image = styled.img`
   position: absolute;
   width: 100%;
   height: 100%;
-  text-indent: 100%;
-  white-space: nowrap;
-  overflow: hidden;
+`;
+
+const DynamicImage = styled(Image)`
   ${(props) => (props.visible ? 'transition: opacity ease-in 200ms' : null)};
   ${(props) => (props.visible ? 'opacity: 1;' : 'opacity: 0;')}
 `;
