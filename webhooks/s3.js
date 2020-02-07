@@ -31,6 +31,7 @@ const uploadBundle = (options = { dev: false }) => new Promise((resolve, reject)
     Bucket: process.env.S3_BUCKET,
     Key: uploadFilename,
     Body: bundleContent,
+    ContentType: 'application/javascript',
   };
 
   s3.upload(params, (err) => {
