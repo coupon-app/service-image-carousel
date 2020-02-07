@@ -9,24 +9,37 @@ const s3 = new AWS.S3({
   secretAccessKey: process.env.AWS_SECRET,
 });
 
-const uploadBundle = () => {
-  execSync('docker cp service-image-carousel_carousel_1:/src/app/client/public/bundle.js .');
+const uploadBundle = (options = { dev: false }) => new Promise((resolve, reject) => {
+  const { dev } = options;
+  let script;
+  let uploadFilename;
 
-  const bundleContent = fs.readFileSync('./bundle.js');
+  if (dev) {
+    script = 'build-dev';
+    uploadFilename = 'bundle-dev.js';
+  } else {
+    script = 'build';
+    uploadFilename = 'bundle.js';
+  }
 
+  execSync(`npm run ${script}`);
+  const bundleContent = fs.readFileSync('../client/public/bundle.js');
   const params = {
     Bucket: process.env.S3_BUCKET,
-    Key: 'bundle.js',
+    Key: uploadFilename,
     Body: bundleContent,
   };
 
   s3.upload(params, (err) => {
     if (err) {
       console.log(err);
+      reject(err);
     } else {
-      console.log('Bundle uploaded successfully');
+      const bundleType = dev ? 'Developement' : 'Production';
+      console.log(`${bundleType} bundle uploaded successfully`);
+      resolve();
     }
   });
-};
+});
 
 module.exports = uploadBundle;

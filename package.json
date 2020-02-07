@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.prod.js",
+    "build-dev": "webpack --config webpack.dev.js",
     "start": "node server",
     "client-dev": "webpack --config webpack.dev.js --watch",
     "server-dev": "nodemon server",
@@ -40,13 +41,15 @@
     "jest-styled-components": "^7.0.0"
   },
   "dependencies": {
-    "axios": "^0.19.2",
     "@babel/core": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
     "@babel/preset-react": "^7.8.3",
-    "babel-plugin-styled-components": "^1.10.7",
+    "aws-sdk": "^2.613.0",
+    "axios": "^0.19.2",
     "babel-loader": "^8.0.6",
+    "babel-plugin-styled-components": "^1.10.7",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongoose": "^5.8.10",
     "prop-types": "^15.7.2",
