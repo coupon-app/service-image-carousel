@@ -25,7 +25,7 @@ const Display = ({ imgUrl }) => {
   return (
     <div>
       {!initLoaded ? <Placeholder /> : null}
-      <Image src={bottomImgSrc} visible={initLoaded} />
+      <Image src={bottomImgSrc} visible={initLoaded} alt="Product animation" />
       <Image
         src={topImgSrc}
         visible={topVisible && loaded}
