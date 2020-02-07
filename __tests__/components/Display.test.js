@@ -5,10 +5,10 @@ import Display from '../../client/src/components/Display';
 describe('Display', () => {
   it('passes most recent imgUrl prop to the top image src', () => {
     const wrapper = mount(<Display imgUrl="a" />);
-    expect(wrapper.find('Display__Image').last().props().src).toBe('a');
+    expect(wrapper.find('Display__DynamicImage').last().props().src).toBe('a');
     wrapper.setProps({ imgUrl: 'b' });
     wrapper.update();
-    expect(wrapper.find('Display__Image').last().props().src).toBe('b');
+    expect(wrapper.find('Display__DynamicImage').last().props().src).toBe('b');
     wrapper.unmount();
   });
 
@@ -29,7 +29,7 @@ describe('Display', () => {
 
   it('does not render a Placeholder after the image has loaded', () => {
     const wrapper = shallow(<Display />);
-    wrapper.find('Display__Image').last().dive().simulate('load');
+    wrapper.find('Display__DynamicImage').last().dive().simulate('load');
     expect(wrapper.find('Placeholder')).not.toExist();
   });
 });
