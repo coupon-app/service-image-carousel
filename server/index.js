@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 const express = require('express');
+const compression = require('compression');
 const cors = require('cors');
 const path = require('path');
 const db = require('../database');
@@ -10,6 +11,7 @@ const PORT = process.env.PORT || 3000;
 const PUBLIC_DIR = path.resolve(__dirname, '..', 'client', 'public');
 
 app.use(cors());
+app.use(compression());
 
 app.use('/', express.static(PUBLIC_DIR));
 
